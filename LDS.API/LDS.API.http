@@ -1,0 +1,6 @@
+@LDS.API_HostAddress = http://localhost:5117
+
+GET {{LDS.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
