@@ -2,14 +2,14 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
 using LDS.Domain.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace LDS.Infrastructure.Context;
 
-public partial class DB_Context : DbContext
+public partial class LDSContext : DbContext
 {
-    public DB_Context(DbContextOptions<DB_Context> options)
+    public LDSContext(DbContextOptions<LDSContext> options)
         : base(options)
     {
     }

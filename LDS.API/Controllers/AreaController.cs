@@ -14,11 +14,11 @@ namespace LDS.API.Controllers
             _AreaService = AreaService;
         }
 
-        [HttpGet]
-        public IActionResult GetAll()
-        {
-            // TODO: Use _AreaService to retrieve data
-            return Ok();
-        }
-    }
+		[HttpGet]
+		public async Task<IActionResult> GetAll()
+		{
+            var areas = await _AreaService.GetAllAsync();
+			return Ok(areas);
+		}
+	}
 }

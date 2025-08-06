@@ -1,7 +1,9 @@
+using LDS.Domain.Models;
+
 namespace LDS.Domain.Repositories
 {
     public interface IAreaRepository
     {
-        // TODO: Define methods for Area repository
-    }
+		public Task<List<LdsArea>> GetAllAsync();
+	}
 }
