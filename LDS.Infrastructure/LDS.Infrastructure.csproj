@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LDS.Contracts\LDS.Contracts.csproj" />
     <ProjectReference Include="..\LDS.Domain\LDS.Domain.csproj" />
   </ItemGroup>
 

@@ -14,12 +14,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Contracts\Requests\" />
-    <Folder Include="Contracts\Responses\" />
     <Folder Include="Controllers\" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LDS.Contracts\LDS.Contracts.csproj" />
     <ProjectReference Include="..\LDS.Domain\LDS.Domain.csproj" />
     <ProjectReference Include="..\LDS.Infrastructure\LDS.Infrastructure.csproj" />
   </ItemGroup>
