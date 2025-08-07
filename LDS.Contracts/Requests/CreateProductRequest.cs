@@ -1,9 +1,7 @@
-namespace LDS.Contracts.DTO
+namespace LDS.Contracts.Requests
 {
-	public class ProductDTO
+	public class CreateProductRequest
 	{
-		public int Id { get; set; }
-
 		public string Name { get; set; }
 
 		public int? BrandId { get; set; }
@@ -19,7 +17,5 @@ namespace LDS.Contracts.DTO
 		public decimal? Quantity { get; set; }
 
 		public string Unit { get; set; }
-
-		public DateTime? CreatedAt { get; set; }
 	}
 }

@@ -2,6 +2,7 @@ namespace LDS.Contracts.Responses
 {
 	public class CategoryResponse
 	{
-		// TODO: Agregar propiedades
+		public int Id { get; set; }
+		public string Name { get; set; }
 	}
 }

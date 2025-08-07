@@ -2,6 +2,7 @@ namespace LDS.Contracts.Responses
 {
 	public class BrandResponse
 	{
-		// TODO: Agregar propiedades
+		public int Id { get; set; }
+		public string Name { get; set; }
 	}
 }

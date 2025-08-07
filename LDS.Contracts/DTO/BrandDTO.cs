@@ -2,6 +2,7 @@ namespace LDS.Contracts.DTO
 {
 	public class BrandDTO
 	{
-		// TODO: Agregar propiedades
+		public int Id { get; set; }
+		public string Name { get; set; }
 	}
 }
