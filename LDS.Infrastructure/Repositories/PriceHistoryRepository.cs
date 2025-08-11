@@ -24,6 +24,14 @@ namespace LDS.Infrastructure.Repositories
 			return await _context.LdsPriceHistories.FindAsync(id);
 		}
 
+		public async Task<LdsPriceHistory?> GetByProductAndDateAsync(LdsPriceHistory entity)
+		{
+			return await _context.LdsPriceHistories.FirstOrDefaultAsync(ph => 
+				ph.ProductId == entity.ProductId && 
+				ph.StartDate == entity.StartDate
+			);
+		}
+
 		public async Task<LdsPriceHistory> CreateAsync(LdsPriceHistory entity)
 		{
 			_context.LdsPriceHistories.Add(entity);

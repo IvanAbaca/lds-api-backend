@@ -29,11 +29,12 @@ namespace LDS.API.Controllers
 				BrandId = dto.BrandId,
 				CategoryId = dto.CategoryId,
 				AreaId = dto.AreaId,
-				ImageUrl = dto.ImageUrl,
-				BaseName = dto.BaseName,
+				UnitMeasureId = dto.UnitMeasureId,
 				Quantity = dto.Quantity,
-				Unit = dto.Unit,
-				CreatedAt = dto.CreatedAt
+				CurrentPrice = dto.CurrentPrice,
+				ImageUrl = dto.ImageUrl,
+				CreatedAt = dto.CreatedAt,
+				UpdatedAt = dto.UpdatedAt,
 			});
 
 			return Ok(response);
@@ -53,11 +54,12 @@ namespace LDS.API.Controllers
 				BrandId = dto.BrandId,
 				CategoryId = dto.CategoryId,
 				AreaId = dto.AreaId,
-				ImageUrl = dto.ImageUrl,
-				BaseName = dto.BaseName,
+				UnitMeasureId = dto.UnitMeasureId,
 				Quantity = dto.Quantity,
-				Unit = dto.Unit,
-				CreatedAt = dto.CreatedAt
+				CurrentPrice = dto.CurrentPrice,
+				ImageUrl = dto.ImageUrl,
+				CreatedAt = dto.CreatedAt,
+				UpdatedAt = dto.UpdatedAt,
 			};
 
 			return Ok(response);
@@ -72,11 +74,10 @@ namespace LDS.API.Controllers
 				BrandId = request.BrandId,
 				CategoryId = request.CategoryId,
 				AreaId = request.AreaId,
-				ImageUrl = request.ImageUrl,
-				BaseName = request.BaseName,
+				UnitMeasureId = request.UnitMeasureId,
 				Quantity = request.Quantity,
-				Unit = request.Unit,
-				CreatedAt = DateTime.UtcNow
+				CurrentPrice = request.CurrentPrice,
+				ImageUrl = request.ImageUrl,
 			};
 
 			var created = await _ProductService.CreateAsync(dto);
@@ -88,11 +89,12 @@ namespace LDS.API.Controllers
 				BrandId = created.BrandId,
 				CategoryId = created.CategoryId,
 				AreaId = created.AreaId,
-				ImageUrl = created.ImageUrl,
-				BaseName = created.BaseName,
+				UnitMeasureId = created.UnitMeasureId,
 				Quantity = created.Quantity,
-				Unit = created.Unit,
-				CreatedAt = created.CreatedAt
+				CurrentPrice = created.CurrentPrice,
+				ImageUrl = created.ImageUrl,
+				CreatedAt = created.CreatedAt,
+				UpdatedAt = created.UpdatedAt,
 			};
 
 			return CreatedAtAction(nameof(GetById), new { id = response.Id }, response);
@@ -108,10 +110,10 @@ namespace LDS.API.Controllers
 				BrandId = request.BrandId,
 				CategoryId = request.CategoryId,
 				AreaId = request.AreaId,
-				ImageUrl = request.ImageUrl,
-				BaseName = request.BaseName,
+				UnitMeasureId = request.UnitMeasureId,
 				Quantity = request.Quantity,
-				Unit = request.Unit,
+				CurrentPrice = request.CurrentPrice,
+				ImageUrl = request.ImageUrl,
 			};
 
 			var updated = await _ProductService.UpdateAsync(dto);
@@ -122,7 +124,16 @@ namespace LDS.API.Controllers
 			var response = new ProductResponse
 			{
 				Id = updated.Id,
-				Name = updated.Name
+				Name = updated.Name,
+				BrandId = updated.BrandId,
+				CategoryId = updated.CategoryId,
+				AreaId = updated.AreaId,
+				UnitMeasureId = updated.UnitMeasureId,
+				Quantity = updated.Quantity,
+				CurrentPrice = updated.CurrentPrice,
+				ImageUrl = updated.ImageUrl,
+				CreatedAt = updated.CreatedAt,
+				UpdatedAt = updated.UpdatedAt,
 			};
 
 			return Ok(response);

@@ -8,6 +8,7 @@ namespace LDS.Domain.Services.Interfaces
 		Task<PriceHistoryDTO?> GetByIdAsync(int id);
 		Task<PriceHistoryDTO> CreateAsync(PriceHistoryDTO dto);
 		Task<PriceHistoryDTO?> UpdateAsync(PriceHistoryDTO dto);
+		Task<PriceHistoryDTO> UpsertAsync(PriceHistoryDTO dto);
 		Task<bool> DeleteAsync(int id);
 	}
 }

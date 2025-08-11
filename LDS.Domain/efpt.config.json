@@ -1,6 +1,6 @@
 ﻿{
    "CodeGenerationMode": 4,
-   "ContextClassName": "DB_LDSContext",
+   "ContextClassName": "LDSContext",
    "ContextNamespace": null,
    "FilterSchemas": false,
    "IncludeConnectionString": false,
@@ -32,6 +32,10 @@
       },
       {
          "Name": "[dbo].[LDS_Products]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[LDS_UnitMeasures]",
          "ObjectType": 0
       }
    ],

@@ -17,15 +17,17 @@ public partial class LdsProduct
 
     public int? AreaId { get; set; }
 
-    public string ImageUrl { get; set; }
-
-    public string BaseName { get; set; }
+    public int? UnitMeasureId { get; set; }
 
     public decimal? Quantity { get; set; }
 
-    public string Unit { get; set; }
+    public decimal CurrentPrice { get; set; }
 
-    public DateTime? CreatedAt { get; set; }
+    public string ImageUrl { get; set; }
+
+    public DateTime CreatedAt { get; set; }
+
+    public DateTime UpdatedAt { get; set; }
 
     public virtual LdsArea Area { get; set; }
 
@@ -34,4 +36,6 @@ public partial class LdsProduct
     public virtual LdsCategory Category { get; set; }
 
     public virtual ICollection<LdsPriceHistory> LdsPriceHistories { get; set; } = new List<LdsPriceHistory>();
+
+    public virtual LdsUnitMeasure UnitMeasure { get; set; }
 }

@@ -33,6 +33,10 @@
       {
          "Name": "[dbo].[LDS_Products]",
          "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[LDS_UnitMeasures]",
+         "ObjectType": 0
       }
    ],
    "UiHint": null,

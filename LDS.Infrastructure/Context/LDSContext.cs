@@ -2,8 +2,8 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
-using LDS.Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using LDS.Domain.Models;
 
 namespace LDS.Infrastructure.Context;
 
@@ -24,11 +24,13 @@ public partial class LDSContext : DbContext
 
     public virtual DbSet<LdsProduct> LdsProducts { get; set; }
 
+    public virtual DbSet<LdsUnitMeasure> LdsUnitMeasures { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<LdsArea>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__LDS_Area__3214EC0770C880C0");
+            entity.HasKey(e => e.Id).HasName("PK_LDS_Areas_Id");
 
             entity.ToTable("LDS_Areas");
 
@@ -39,7 +41,7 @@ public partial class LDSContext : DbContext
 
         modelBuilder.Entity<LdsBrand>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__LDS_Bran__3214EC07D737944F");
+            entity.HasKey(e => e.Id).HasName("PK_LDS_Brands_Id");
 
             entity.ToTable("LDS_Brands");
 
@@ -50,7 +52,7 @@ public partial class LDSContext : DbContext
 
         modelBuilder.Entity<LdsCategory>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__LDS_Cate__3214EC07924BE1B9");
+            entity.HasKey(e => e.Id).HasName("PK_LDS_Categories_Id");
 
             entity.ToTable("LDS_Categories");
 
@@ -61,7 +63,7 @@ public partial class LDSContext : DbContext
 
         modelBuilder.Entity<LdsPriceHistory>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__LDS_Pric__3214EC079B5EA5C6");
+            entity.HasKey(e => e.Id).HasName("PK_LDS_PriceHistory_Id");
 
             entity.ToTable("LDS_PriceHistory");
 
@@ -77,20 +79,22 @@ public partial class LDSContext : DbContext
 
         modelBuilder.Entity<LdsProduct>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__LDS_Prod__3214EC070ACCA550");
+            entity.HasKey(e => e.Id).HasName("PK_LDS_Products_Id");
 
             entity.ToTable("LDS_Products");
 
-            entity.Property(e => e.BaseName).HasMaxLength(200);
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
+            entity.Property(e => e.CurrentPrice).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.ImageUrl).HasMaxLength(500);
             entity.Property(e => e.Name)
                 .IsRequired()
                 .HasMaxLength(200);
             entity.Property(e => e.Quantity).HasColumnType("decimal(10, 2)");
-            entity.Property(e => e.Unit).HasMaxLength(20);
+            entity.Property(e => e.UpdatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
 
             entity.HasOne(d => d.Area).WithMany(p => p.LdsProducts)
                 .HasForeignKey(d => d.AreaId)
@@ -103,6 +107,21 @@ public partial class LDSContext : DbContext
             entity.HasOne(d => d.Category).WithMany(p => p.LdsProducts)
                 .HasForeignKey(d => d.CategoryId)
                 .HasConstraintName("FK_LDS_Products_Category");
+
+            entity.HasOne(d => d.UnitMeasure).WithMany(p => p.LdsProducts)
+                .HasForeignKey(d => d.UnitMeasureId)
+                .HasConstraintName("FK_LDS_Products_UnitMeasure");
+        });
+
+        modelBuilder.Entity<LdsUnitMeasure>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK_LDS_UnitMeasures_Id");
+
+            entity.ToTable("LDS_UnitMeasures");
+
+            entity.Property(e => e.Name)
+                .IsRequired()
+                .HasMaxLength(50);
         });
 
         OnModelCreatingPartial(modelBuilder);

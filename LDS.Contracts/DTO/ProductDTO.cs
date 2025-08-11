@@ -12,14 +12,16 @@ namespace LDS.Contracts.DTO
 
 		public int? AreaId { get; set; }
 
-		public string ImageUrl { get; set; }
-
-		public string BaseName { get; set; }
+		public int? UnitMeasureId { get; set; }
 
 		public decimal? Quantity { get; set; }
 
-		public string Unit { get; set; }
+		public decimal CurrentPrice { get; set; }
 
-		public DateTime? CreatedAt { get; set; }
+		public string ImageUrl { get; set; }
+
+		public DateTime CreatedAt { get; set; }
+
+		public DateTime UpdatedAt { get; set; }
 	}
 }

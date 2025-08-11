@@ -51,6 +51,18 @@ namespace LDS.API.Controllers
 			return Ok(response);
 		}
 
+		[HttpDelete("{id}")]
+		public async Task<IActionResult> Delete(int id)
+		{
+			var deleted = await _PriceHistoryService.DeleteAsync(id);
+			if (!deleted)
+				return NotFound();
+
+			return NoContent();
+		}
+
+		// Creation of price history records is typically handled internally when a product's price changes.
+		/*
 		[HttpPost]
 		public async Task<IActionResult> Create([FromBody] CreatePriceHistoryRequest request)
 		{
@@ -73,7 +85,10 @@ namespace LDS.API.Controllers
 
 			return CreatedAtAction(nameof(GetById), new { id = response.Id }, response);
 		}
+		*/
 
+		// Update is not typically needed for price history, as records are usually immutable after creation.
+		/*
 		[HttpPut("{id}")]
 		public async Task<IActionResult> Update(int id, [FromBody] UpdatePriceHistoryRequest request)
 		{
@@ -99,15 +114,6 @@ namespace LDS.API.Controllers
 
 			return Ok(response);
 		}
-
-		[HttpDelete("{id}")]
-		public async Task<IActionResult> Delete(int id)
-		{
-			var deleted = await _PriceHistoryService.DeleteAsync(id);
-			if (!deleted)
-				return NotFound();
-
-			return NoContent();
-		}
+		*/
 	}
 }

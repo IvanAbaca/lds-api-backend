@@ -14,7 +14,19 @@ namespace LDS.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+			// Agregar configuración CORS
+			builder.Services.AddCors(options =>
+			{
+				options.AddPolicy("AllowAngularDev",
+					policy =>
+					{
+						policy.WithOrigins("http://localhost:4200")
+							  .AllowAnyHeader()
+							  .AllowAnyMethod();
+					});
+			});
+
+			// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 			builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -24,6 +36,7 @@ namespace LDS.API
 
 			#region Services
 			// Add services to the container.
+            builder.Services.AddScoped<IUnitMeasureService, UnitMeasureService>();
 			builder.Services.AddScoped<IAreaService, AreaService>();
 			builder.Services.AddScoped<IBrandService, BrandService>();
 			builder.Services.AddScoped<ICategoryService, CategoryService>();
@@ -33,6 +46,7 @@ namespace LDS.API
 
 			#region Repositories
 			// Add repositories to the container.
+			builder.Services.AddScoped<IUnitMeasureRepository, UnitMeasureRepository>();
 			builder.Services.AddScoped<IAreaRepository, AreaRepository>();
 			builder.Services.AddScoped<IBrandRepository, BrandRepository>();
 			builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
@@ -49,7 +63,9 @@ namespace LDS.API
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
+			app.UseCors("AllowAngularDev");
+
+			app.UseHttpsRedirection();
 
             app.UseAuthorization();
 

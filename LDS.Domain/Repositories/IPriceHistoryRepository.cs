@@ -6,6 +6,7 @@ namespace LDS.Domain.Repositories
 	{
 		Task<List<LdsPriceHistory>> GetAllAsync();
 		Task<LdsPriceHistory?> GetByIdAsync(int id);
+		Task<LdsPriceHistory?> GetByProductAndDateAsync(LdsPriceHistory entity);
 		Task<LdsPriceHistory> CreateAsync(LdsPriceHistory entity);
 		Task<LdsPriceHistory> UpdateAsync(LdsPriceHistory entity);
 		Task<bool> DeleteAsync(int id);

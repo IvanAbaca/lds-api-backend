@@ -81,6 +81,41 @@ namespace LDS.Domain.Services
 			};
 		}
 
+		public async Task<PriceHistoryDTO> UpsertAsync(PriceHistoryDTO dto)
+		{
+			// Check if a price history entry already exists for the product and date
+			var existing = await _PriceHistoryRepository.GetByProductAndDateAsync(new LdsPriceHistory
+			{
+				ProductId = dto.ProductId,
+				StartDate = dto.StartDate
+			});
+
+			if (existing != null)
+			{
+				// Update existing entry
+				existing.Price = dto.Price;
+				await _PriceHistoryRepository.UpdateAsync(existing);
+				return new PriceHistoryDTO
+				{
+					Id = existing.Id,
+					ProductId = existing.ProductId,
+					Price = existing.Price,
+					StartDate = existing.StartDate
+				};
+			}
+
+			// Create new entry
+			var newPriceHistory = new LdsPriceHistory
+			{
+				ProductId = dto.ProductId,
+				Price = dto.Price,
+				StartDate = dto.StartDate
+			};
+
+			await _PriceHistoryRepository.CreateAsync(newPriceHistory);
+			dto.Id = newPriceHistory.Id;
+			return dto;
+		}
 		public async Task<bool> DeleteAsync(int id)
 		{
 			var existing = await _PriceHistoryRepository.GetByIdAsync(id);
