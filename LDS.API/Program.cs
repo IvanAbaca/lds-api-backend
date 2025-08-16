@@ -1,4 +1,3 @@
-
 using LDS.Domain.Services.Interfaces;
 using LDS.Domain.Services;
 using LDS.Domain.Repositories;
@@ -8,35 +7,36 @@ using LDS.Infrastructure.Context;
 
 namespace LDS.API
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
+	public class Program
+	{
+		public static void Main(string[] args)
+		{
+			var builder = WebApplication.CreateBuilder(args);
 
-			// Agregar configuración CORS
+			// ?? FORZAR configuración ignorando launchSettings
+			builder.WebHost.UseUrls("http://0.0.0.0:5117");
+
+			// CORS para red local
 			builder.Services.AddCors(options =>
 			{
-				options.AddPolicy("AllowAngularDev",
+				options.AddPolicy("AllowLocalNetwork",
 					policy =>
 					{
-						policy.WithOrigins("http://localhost:4200")
+						policy.AllowAnyOrigin()
 							  .AllowAnyHeader()
 							  .AllowAnyMethod();
 					});
 			});
 
-			// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 			builder.Services.AddControllers();
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+			builder.Services.AddEndpointsApiExplorer();
+			builder.Services.AddSwaggerGen();
 
 			builder.Services.AddDbContext<LDSContext>(options =>
-	        options.UseSqlServer(builder.Configuration.GetConnectionString("LDSContext")));
+				options.UseSqlServer(builder.Configuration.GetConnectionString("LDSContext")));
 
 			#region Services
-			// Add services to the container.
-            builder.Services.AddScoped<IUnitMeasureService, UnitMeasureService>();
+			builder.Services.AddScoped<IUnitMeasureService, UnitMeasureService>();
 			builder.Services.AddScoped<IAreaService, AreaService>();
 			builder.Services.AddScoped<IBrandService, BrandService>();
 			builder.Services.AddScoped<ICategoryService, CategoryService>();
@@ -45,7 +45,6 @@ namespace LDS.API
 			#endregion
 
 			#region Repositories
-			// Add repositories to the container.
 			builder.Services.AddScoped<IUnitMeasureRepository, UnitMeasureRepository>();
 			builder.Services.AddScoped<IAreaRepository, AreaRepository>();
 			builder.Services.AddScoped<IBrandRepository, BrandRepository>();
@@ -56,23 +55,17 @@ namespace LDS.API
 
 			var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
+			if (app.Environment.IsDevelopment())
+			{
+				app.UseSwagger();
+				app.UseSwaggerUI();
+			}
 
-			app.UseCors("AllowAngularDev");
+			app.UseCors("AllowLocalNetwork");
+			app.UseAuthorization();
+			app.MapControllers();
 
-			app.UseHttpsRedirection();
-
-            app.UseAuthorization();
-
-            app.MapControllers();
-
-            app.Run();
-        }
-    }
+			app.Run();
+		}
+	}
 }
-        
