@@ -129,7 +129,6 @@ namespace LDS.Domain.Services
 			existing.Quantity = dto.Quantity;
 			existing.CurrentPrice = dto.CurrentPrice;
 			existing.ImageUrl = dto.ImageUrl;
-			existing.UpdatedAt = DateTime.UtcNow;
 
 			using (var scope = new TransactionScope(TransactionScopeOption.Required,
 				new TransactionOptions { IsolationLevel = IsolationLevel.ReadCommitted },
@@ -138,6 +137,7 @@ namespace LDS.Domain.Services
 				// If the price has changed, add a new price history record
 				if (existing.CurrentPrice != previousPrice)
 				{
+					existing.UpdatedAt = DateTime.UtcNow;
 					var priceHistory = new PriceHistoryDTO
 					{
 						ProductId = existing.Id,
