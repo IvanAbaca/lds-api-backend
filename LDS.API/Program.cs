@@ -20,7 +20,7 @@ namespace LDS.API
 				options.AddPolicy("AllowAngularDev",
 					policy =>
 					{
-						policy.WithOrigins("http://localhost:4200")
+						policy.AllowAnyOrigin()
 							  .AllowAnyHeader()
 							  .AllowAnyMethod();
 					});
@@ -65,7 +65,7 @@ namespace LDS.API
 
 			app.UseCors("AllowAngularDev");
 
-			app.UseHttpsRedirection();
+			//app.UseHttpsRedirection();
 
             app.UseAuthorization();
 
